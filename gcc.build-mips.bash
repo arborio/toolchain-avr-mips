@@ -1,0 +1,61 @@
+#!/bin/bash -ex
+
+if [[ ! -f gmp-4.3.2.tar.bz2  ]] ;
+then
+	wget ftp://ftp.fu-berlin.de/unix/languages/gcc/infrastructure/gmp-4.3.2.tar.bz2
+fi
+
+tar xfjv gmp-4.3.2.tar.bz2
+
+if [[ ! -f mpfr-2.4.2.tar.bz2  ]] ;
+then
+	wget ftp://ftp.fu-berlin.de/unix/languages/gcc/infrastructure/mpfr-2.4.2.tar.bz2
+fi
+
+tar xfjv mpfr-2.4.2.tar.bz2
+
+if [[ ! -f mpc-0.8.1.tar.gz  ]] ;
+then
+	wget ftp://ftp.fu-berlin.de/unix/languages/gcc/infrastructure/mpc-0.8.1.tar.gz
+fi
+
+tar xfzv mpc-0.8.1.tar.gz
+
+cd gcc-4.3.2
+for p in ../gcc-patches/*.patch; do echo Applying $p; patch -p0 < $p; done
+cd -
+
+mv gmp-4.3.2 gcc-4.3.2/gmp
+mv mpfr-2.4.2 gcc-4.3.2/mpfr
+mv mpc-0.8.1 gcc-4.3.2/mpc
+
+mkdir -p objdir
+cd objdir
+PREFIX=`pwd`
+cd -
+
+mkdir -p gcc-build
+cd gcc-build
+
+CONFARGS=" \
+	--enable-languages=c,c++ \
+	--prefix=$PREFIX \
+	--enable-long-long \
+	--disable-nls \
+	--disable-checking \
+	--disable-libssp \
+	--disable-shared \
+	--with-dwarf2 \
+	--host=mips-openwrt-linux \
+	--target=avr"
+
+CFLAGS="-w -O2 $CFLAGS" CXXFLAGS="-w -O2 $CXXFLAGS" LDFLAGS="-s $LDFLAGS" ../gcc-4.3.2/configure $CONFARGS
+
+if [ -z "$MAKE_JOBS" ]; then
+	MAKE_JOBS="2"
+fi
+
+nice -n 10 make V=s -j $MAKE_JOBS
+
+make install
+

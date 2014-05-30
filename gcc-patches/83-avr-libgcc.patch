@@ -1,0 +1,16 @@
+--- gcc/config/avr/libgcc.S	2014-05-25 13:24:51.682573227 -0700
++++ gcc/config/avr/libgcc.S.new	2014-05-25 13:35:54.310392872 -0700
+@@ -644,14 +649,13 @@
+ _exit:
+ 	.weak	exit
+ exit:
+-
++	.endfunc
+ 	/* Code from .fini8 ... .fini1 sections inserted by ld script.  */
+ 
+ 	.section .fini0,"ax",@progbits
+ 	cli
+ __stop_program:
+ 	rjmp	__stop_program
+-	.endfunc
+ #endif /* defined (L_exit) */

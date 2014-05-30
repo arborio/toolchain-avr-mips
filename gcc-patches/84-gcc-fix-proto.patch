@@ -1,0 +1,11 @@
+--- ../gcc-4.3.2/gcc/config.gcc	2008-06-09 09:32:15.000000000 -0700
++++ ../gcc-4.3.2/gcc/config.gcc.new	2014-05-25 17:41:52.474859425 -0700
+@@ -829,7 +829,7 @@
+ 	;;
+ avr-*-*)
+ 	tm_file="avr/avr.h dbxelf.h"
+-	use_fixproto=yes
++	use_fixproto=no
+ 	;;
+ bfin*-elf*)
+ 	tm_file="${tm_file} dbxelf.h elfos.h bfin/elf.h"
