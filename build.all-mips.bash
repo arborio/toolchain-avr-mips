@@ -7,3 +7,5 @@ rm -rf objdir
 ./clean.bash
 ./gcc.build-mips.bash
 ./clean.bash
+./libc.build-mips.bash
+./clean.bash
