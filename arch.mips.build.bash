@@ -5,8 +5,6 @@ export STAGING_DIR=$BUILD_TOPDIR/tmp
 export ARCH=mips CROSS_COMPILE=mips-openwrt-linux-
 export PATH=$BUILD_TOPDIR/toolchain/bin:$PATH
 
-export ARCH=mips CROSS_COMPILE=mips-openwrt-linux-
-
 ./build.all-mips.bash
 
 rm -f avr-toolchain-*.zip
