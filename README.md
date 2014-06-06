@@ -7,6 +7,7 @@ Setup and Compile
 -----------------
 
 To compile gcc-avr for mips you will need a Linux build environment, OpenWRT mips toolchain and avr-gcc for your host environment.
+
 [OpenWRT 12.09 ar71xx toolchain](http://downloads.openwrt.org/attitude_adjustment/12.09/ar71xx/generic/ "OpenWRT 12.09 ar71xx toolchain")
 
 [AVR Toolchain](https://github.com/arduino/toolchain-avr "Arduino avr-toolchain")
